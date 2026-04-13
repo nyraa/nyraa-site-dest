@@ -1,0 +1,88 @@
+backend:
+  name: github
+  repo: nyraa/nyraa-site
+  branch: master
+  # squash_merges: true
+
+media_folder: "assets/images"
+# media_folder_relative: true
+public_folder: "images/"
+editor:
+  preview: true
+# publish_mode: editorial_workflow
+
+site_url: https://www.nyraa.net
+display_url: https://github.com/nyraa/nyraa-site
+logo_url: https://www.nyraa.net/favicon/favicon64.ico
+
+collections:
+  - label: "Home en"
+    name: "home-en"
+    folder: "content/en"
+    create: false
+    slug: "_index"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - label: "Home zh-tw"
+    name: "home-zh-tw"
+    folder: "content/zh-tw"
+    create: false
+    slug: "_index"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - label: "Post en"
+    name: "post-en"
+    folder: "content/en/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: true }
+      - {
+          label: "Eyecatch",
+          name: "eyecatch",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Canonical URL",
+          name: "canonicalURL",
+          widget: "string",
+          required: false,
+        }
+      - { label: "ToC", name: "toc", widget: "boolean", default: false }
+      - { label: "Math", name: "math", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - label: "Post zh-tw"
+    name: "post-zh-tw"
+    folder: "content/zh-tw/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: true }
+      - {
+          label: "Eyecatch",
+          name: "eyecatch",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Canonical URL",
+          name: "canonicalURL",
+          widget: "string",
+          required: false,
+        }
+      - { label: "ToC", name: "toc", widget: "boolean", default: false }
+      - { label: "Math", name: "math", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>首頁 on </title>
+    <link>https://www.nyraa.net/</link>
+    <description>Recent content in 首頁 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Thu, 06 Nov 2025 19:56:54 +0000</lastBuildDate>
+    <atom:link href="https://www.nyraa.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 Freshtomato 和 OpenWRT 上使用 Tinc VPN</title>
+      <link>https://www.nyraa.net/posts/freshtomato-tinc/</link>
+      <pubDate>Thu, 06 Nov 2025 19:56:54 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/freshtomato-tinc/</guid>
+      <description>VPN 的選擇 我平常使用的路由器是 arm 架構的，上面裝 Freshtomato 韌體，連到我的伺服器之間是用 WireGuard，但是手邊另一台路由器架構是 mips，對應的 Freshtomato 原始碼不包含 WireGuard，至於為什麼不包含我還沒仔細研究是哪部分使得這個架構沒有包含 WireGuard，但是有 Tinc 我就先用了 Tinc。&#xA;各節點參數 這邊的拓樸是讓 OpenWRT 有公開的 IP 位址作為大家的入口。&#xA;OpenWRT 設定 內容 介面名稱 tinc_vpn1 節點名稱 openwrt LAN IP 192.168.140.1/24 WAN IP 111.111.111.111 Freshtomato 設定 內容 介面名稱 tinc（固定） 節點名稱 freshtomato LAN IP 192.168.150.1/24 OpenWRT 端設定 參考 官方文件 設定&#xA;安裝套件 opkg update opkg install tinc 建立資料夾 mkdir -p /etc/tinc/tinc_vpn1 產生金鑰 tinc -n tinc_vpn1 generate-ed25519-keys &amp;lt; /dev/null 如果不跟舊版節點連線的話就不用生 RSA 金鑰。</description>
+    </item>
+    <item>
+      <title>編譯 Freshtomato 並自訂包含的功能</title>
+      <link>https://www.nyraa.net/posts/compile-freshtomato/</link>
+      <pubDate>Thu, 06 Nov 2025 18:58:50 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/compile-freshtomato/</guid>
+      <description>前言 Freshtomato 是一個開放原始碼的路由器韌體，可以讓一些原廠韌體已經停止更新的老路由器續命，更多種種好處在網路上也可以看到大家敘述。&#xA;我自己主要會用的原因是因為我手上的路由器都是 ASUS 的，官方韌體版本都老到不支援我需要用到的 VPN，例如一台 RT-AC66U-B1 官方韌體最新版本是 3.0.0.4.386_52062，但是我想用的 WireGuard VPN 需要 3.0.0.4.388.23000 版本以上才能支援（我一直以為這台已經老到被放棄了，結果剛為了查韌體最新版才發現兩周前官方才剛發了一個韌體更新，但仍然只有修補功能，沒有新增功能），以及另一台更老的 RT-N15U，上面甚至只有 PPTP 伺服器，沒有任何 VPN 客戶端可用，沒辦法拿來作為我網路拓樸裡面的存取點。&#xA;正好這兩台路由器都在 Freshtomato 的支援清單中，RT-AC66U-B1 這台的 Flash Memory 比較大，可以無腦選 AIO 版本，而且支援的 Kernel 版本也比較新，支援 WireGuard，這台直接刷官方的 pre-build binary 韌體就可以了。&#xA;但是為何需要自己編譯 Freshtomato 韌體呢？主要是因為 RT-N15U 這台 Flash Memory 只有 8MB，根據官方 Feature matrix 來看，8MB 的 pre-build 版本中至多只有 OpenVPN、PPTP 這兩種 VPN，但是我比較偏好 8MB 以上才包含的 Tinc 這個原生支援 Mesh 的 VPN，所以需要自己挑用不到的功能去掉，然後在省下來的空間加上 Tinc 來編譯。&#xA;編譯步驟 環境 OS: Ubuntu 24.04.3 Kernel: 6.14.0-33-generic Docker: 28.</description>
+    </item>
+    <item>
+      <title>我的日常各式工作用工具</title>
+      <link>https://www.nyraa.net/posts/daily-work-tools/</link>
+      <pubDate>Sat, 06 Sep 2025 16:32:27 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/daily-work-tools/</guid>
+      <description>紀錄我平常在每種任務上都用什麼工具來完成。&#xA;影音 轉檔 - ffmpeg 連結： https://ffmpeg.org/ 簡單好用，收錄的編碼多，開放原始碼且乾淨，沒理由不用。&#xA;主要用途為：&#xA;轉換格式 壓縮影音 合併分離影音軌道 裁切影音 下載合併 m3u 播放清單 下載 YouTube - yt-dlp 連結： https://github.com/yt-dlp/yt-dlp 與其用網路上那些來路不明的網站跟程式，要承擔廣告/格式不全/重新編碼之類的問題，還是 yt-dlp 乾淨好用。&#xA;音訊編輯 - Audacity 連結： https://github.com/audacity/audacity 撇除掉某版開始有收集過多資訊這點以外，整體算是乾淨好用。&#xA;主要用途：&#xA;精準地剪接聲音 去除噪音 混合音軌 影片編輯 - 還沒找到順手的 以前會用 AviUtl，但那個毛病偏多，專案規模大起來容易崩，簡單用起來體驗還算可以，但是沒有到非常完美。&#xA;反編譯 C# DnSpy il2cppdumper Unity 專案用 il2cpp 編譯成 native 之後要用的。&#xA;Java JADX 用 apktool 拆包修 smali 或是寫 ReVanced 補釘的時候都是用 JADX 來瀏覽相較能讀的 Code，然後再找到對應的 smali 的位置然後修改。&#xA;這工具的 Reference 做得還不錯，可以容易追到每個物件/變數用到哪裡去。&#xA;其他 Ghidra 還不是很會用，只能追簡單的流程。</description>
+    </item>
+    <item>
+      <title>WSA 用 fiddler 攔截封包</title>
+      <link>https://www.nyraa.net/posts/wsa-fiddler/</link>
+      <pubDate>Tue, 19 Nov 2024 08:54:14 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/wsa-fiddler/</guid>
+      <description>環境 這邊假設是用原生的 WSA，沒有裝過 Magisk 或是替換成有 superuser 的 kernel。&#xA;安裝憑證 先用 wsl 掛載 system.vhdx，假設路徑在 /mnt/c/WSA/system.vhdx&#xA;假設憑證已經做成兩個 .0 檔案&#xA;resize_img() { sudo e2fsck -pf &amp;#34;$1&amp;#34; || return 1 if [ &amp;#34;$2&amp;#34; ]; then sudo resize2fs &amp;#34;$1&amp;#34; &amp;#34;$2&amp;#34; || return 1 else sudo resize2fs -M &amp;#34;$1&amp;#34; || return 1 fi return 0 } # convert vhdx qemu-img convert -q -f vhdx -O raw /mnt/c/WSA/system.vhdx /tmp/system.img # ro ext4 img to rw resize_img /tmp/system.img &amp;#34;$(($(du --apparent-size -sB512 /tmp/system.</description>
+    </item>
+    <item>
+      <title>修改Android安裝包（APK）以支援應用程式個別語言切換</title>
+      <link>https://www.nyraa.net/posts/incognitas/tutorial-note/modify-apk-to-support-individual-language/</link>
+      <pubDate>Thu, 16 Feb 2023 22:09:43 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/tutorial-note/modify-apk-to-support-individual-language/</guid>
+      <description>從Android13開始，使用者可以選擇切換個別應用程式的語言，不依賴於系統預設語言，例如可以在系統語言為英文時，將地圖切換成中文以用中文顯示地名，但這些的前提在該應用程式有支援的情況下。&#xA;這篇文章將會介紹如何自行修改APK，來將原本不支援個別切換的應用程式支援個別切換語言，甚至可以新增其他原本不支援的語言。&#xA;以pixiv為例&#xA;以pixiv為例，若在非日文顯示的情況下，插圖的tag會在旁邊顯示翻譯後的文字，很佔空間又有點礙眼，但只因為這個原因把整個系統調成日文又有點不妥，所以可以用此方法新增支援應用程式語言，來達成只調整pixiv程式的顯示語言。&#xA;在中文的顯示下，tag會附上翻譯&#xA;在日文的情況下，tag簡潔乾淨&#xA;圖源： 97147052 限制 因為工具支援度的問題，有些安裝檔（可能是刻意混淆過的）會無法拆解或是重新包裝，例如目前已知的有LINE、Messenger。&#xA;且修改完之後，因為簽名會與原開發者不同，安裝時必須先解除安裝原本的程式，資料會全部遺失，且修改過的版本無法透過Google Play直接更新。&#xA;所需工具 Apktool 開放原始碼的apk逆向工程工具 SDK Build-Tools Android開發建置用的工具包 SDK Platform-Tools(ADB) Android除錯用工具（非必要、建議要有） 純文字編輯器 SDK Build-Tools只能透過安裝整個Android Studio後從SDK Manager安裝，然後再複製出來，當然第三方也找得到有人已經複製出來的檔案，但安全性堪虞，請自己判斷是否要信任第三方的備份來節省時間。&#xA;純文字編輯器要用的話記事本也是能用，但推薦Notepad++或是其他有上色的編輯器較佳。&#xA;可以選擇將以上工具加入環境變數，會比較方便操作，詳細教學可以上網查。&#xA;必須先知道終端機如CMD及adb怎麼使用，網路上教學也很多。&#xA;步驟 首先要取得目標應用程式的安裝包，建議從手機中取得已安裝的程式，這樣可以確保相容性以及安全性，以下示範從手機中取出已安裝程式的安裝包。&#xA;要取得安裝包，必須要先知道安裝包名稱，可以去play商店網頁版看id=後面的參數，如pixiv的網址長這樣：&#xA;https://play.google.com/store/apps/details?id=jp.pxv.android 其中jp.pxv.android就是pixiv程式的套件名稱，也可以透過以下指令來看手機中已經有哪些package了：&#xA;adb shell pm list package 從中找出要取得的程式套件名稱之後，可以用以下指令找出安裝包在手機裡的哪裏：&#xA;adb shell pm path [應用程式套件名稱] # 以pixiv舉例就是： adb shell pm path jp.pxv.android 之後就能得到類似以下的輸出：&#xA;package:/data/app/~~PCsS6lOjxypM0fXUtg64lg==/jp.pxv.android-ZRblp8nyffd0Y-1AfxN4Mw==/base.apk 斜線後面就是apk的路徑，如果是用app bundle的較新的應用程式，可能會有好幾個apk，其中base.apk是最主要的主程式包，然後接下來就要把apk檔案都複製出來：&#xA;adb pull [剛才取得的路徑] . # 以剛才的舉例就是： adb pull /data/app/~~PCsS6lOjxypM0fXUtg64lg==/jp.pxv.android-ZRblp8nyffd0Y-1AfxN4Mw==/base.apk . 執行完之後會把apk檔案都複製到目前工作目錄，然後用apktool拆開：&#xA;apktool d base.apk 然後進到拆開的資料夾中，會看到res/xml資料夾及AndroidManifest.</description>
+    </item>
+    <item>
+      <title>【中文翻譯】WSAGAScript README</title>
+      <link>https://www.nyraa.net/posts/incognitas/translate/wsagascript-readme-md-chinese-translate/</link>
+      <pubDate>Thu, 09 Dec 2021 12:15:41 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/translate/wsagascript-readme-md-chinese-translate/</guid>
+      <description>儲存庫： https://github.com/WSA-Community/WSAGAScript 翻譯版本： f9d6b42 （2021/12/2）&#xA;首次嘗試翻譯，不一定精確流暢。&#xA;專案簡介by譯者 微軟在Windows 11中推出子系統Android，至目前翻譯時（2021/12/09）為止，還只有在美國的測試員通道有在Microsoft Store中提供。&#xA;但WSA中微軟只有跟Amazon合作，裡面的應用程式商店只有Amazon Store，而非大家常用的Google Play，其中選擇非常少，ADeltaX在幾天後就找到方法來在WSA中安裝Google GApps框架，就是此專案。&#xA;必要警告 這個專案正在持續進行中 這個專案會經常不照時程的更新。&#xA;現在這個README可能不會完全的清楚，將會盡速修復。&#xA;至於潛在問題，請發起討論（Discussions）來取代問題（Issues）。&#xA;只有在有實際的問題在阻礙著你使用這個專案時才需提出問題（Issues）。&#xA;法律警告 當你在使用這個專案提供的工具時（例如包括但不限於腳本（Script）），視同你同意 未授權條款（Unlicence Licence） ，其中指出「軟體『按照現況』提供」(&amp;ldquo;THE SOFTWARE IS PROVIDED &amp;ldquo;AS IS&amp;rdquo;&amp;quot;)。&#xA;對於終端使用者這是一個警告，儘管我們現在沒有任何明確的確認——這種安裝Google服務和Google Play的方式可能處於法律灰色地帶。&#xA;版權提醒 在這份文件（或是整個專案）中的產品、商標屬於原作者，沒有刻意侵害版權。&#xA;YouTube教學 作為一個暫時的措施與附加資訊（特別是README還是不清楚的時候， @ADeltaX 在YouTube上提供了一個影片教學）&#xA;點擊圖片以查看影片&#xA;安裝程序 在Windows子系統Linux（第二版）中安裝 譯註：Windows子系統Linux原文為Windows Subsystem for Linux，縮寫為WSL。&#xA;問答：WSL的安裝 如果你從未用過WSL，請確認以下事情：&#xA;你必須執行Windows 10 2004版或以上（組建19041或以上）或是Windows 11。 確認你的組建最快的方式是在Windows搜尋執行winver指令，也可以透過「執行新工作」（在開始按鈕上按右鍵&amp;gt;「執行」）&#xA;為何我需要「WSL」？ 因為Android作為作業系統的建置——我們需要的特定的修改工具只在Linux基底的作業系統上有提供。最快去存取那些工具的方法就是透過WSL。&#xA;如何安裝WSL 用管理員身分打開Windows PowerShell 執行wsl --install：這樣一來就會安裝Ubuntu 20.04 LTS於WSL（第二版）中，而且全部必要的組件需要在它是預設的情況下執行（推薦） 在下載與安裝必要組件的時候，你的電腦可能會重新啟動數次。&#xA;在這之後跟著安裝精靈的指示繼續進行，如果你有任何問題，微軟提供的WSL官方文件可以幫上忙。&#xA;用wsl --list --verbose確認你的WSL發行版是安裝在第二版的。&#xA;如果因為一些原因你接收到第一版的核心（Kernel）（或是你平時在執行這些指令時有些麻煩）——請跟著以下段落來跟著做。 Microsoft Docs: Installing WSL Microsoft Docs: Set up and best practices 如何把WSL1轉換成WSL2（並且手動安裝） 如果你在用wsl --install安裝WSL2時出了些麻煩，或是一些原因讓你接收到了WSL第一版的安裝，這個段落是給你的。</description>
+    </item>
+    <item>
+      <title>資源向網路爬蟲製作個人經驗紀錄（1）</title>
+      <link>https://www.nyraa.net/posts/incognitas/daily/crawler/resources-crawler-1/</link>
+      <pubDate>Sat, 21 Aug 2021 14:28:26 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/daily/crawler/resources-crawler-1/</guid>
+      <description>前言 在這裡說的內容因為是來自個人經驗，可能不會是最佳的解答~~，但反正她會動~~。&#xA;網路爬蟲是什麼 廣義上來說從網路上自動化的爬一票資源下來的程式就可以說是網路爬蟲，常見的用途有像是：搜尋引擎要從所有網站上面爬出關鍵字與資源，或是把指定的資源從伺服器上面收集起來。&#xA;資源向網路爬蟲通常指，針對某些網站自動化（機械化）地把指定的資源收集（下載）起來，也可稱為資源下載工具。&#xA;我個人常寫的是爬圖片/影片的下載器，看看這網站的紀錄就知道了。&#xA;語言選擇 通常下載器或爬蟲使用的語言都是直譯語言，例如Python、Ruby、JavaScript等等的script，方便修改與跨平台相容。&#xA;我個人習慣用Python，日後也會用Python來舉例。&#xA;基礎知識 既然叫「網路」爬蟲，基礎的知識會需要以下幾個：&#xA;HTML、JavaScript、CSS（選擇器）：需要基本的網頁原始碼解讀能力，才能在網站中分析出有用的資訊。 HTTP通訊協定（最基本的就好，我也不是全部都會）：爬蟲大多都是用HTTP協定與伺服器溝通。 分辨常見資料格式（例如JSON）：操作API使用。 盡量要熟悉瀏覽器開發人員工具（俗稱F12）：在網站中找到需要的資訊。 流程 通常製作一個下載器需要的步驟通常是：&#xA;找到該網站的資源存放方式 尋找metadata或是資源與網址的關係 寫程式來依照規則（metadata或是網址轉換關係）來下載檔案 後處理 接下來會每個標題寫為一或數篇文章，緩慢更新。&#xA;禮貌 爬取網站資源前盡量先看看該網站服務條款等等規範，有沒有禁止爬資源，或是相關規範，如果有的話就要考慮用學術研究用途包裝妳在做的事情一下。&#xA;雖然現今很多網站都是因為禁止下載，而沒有官方的下載方式才有民間爬蟲崛起的趨勢啦。&#xA;小結 接下來會有很多篇資源向網路爬蟲製作個人經驗紀錄會逐漸發表。&#xA;但標題應該會簡化，不然副標題都打不下了。&#xA;下一篇會講如何找到網站的資源存放方式。</description>
+    </item>
+    <item>
+      <title>自製自用的Pixiv下載助手</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/pixiv-download-helper-1/</link>
+      <pubDate>Fri, 09 Jul 2021 17:19:40 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/pixiv-download-helper-1/</guid>
+      <description>這只是為了個人方便下載桌布使用，所以功能沒很多。&#xA;Github： https://github.com/HSSLC/pixiv-download-helper 功能 執行之後，會下載在剪貼簿中的pixiv作品連結的完整畫質圖片（不需要登入）。&#xA;使用方式 啟動這個程式 瀏覽pixiv 看到想要下載的作品時就複製作品連結（pixiv.net/artworks/&amp;hellip;） 這個程式將會從剪貼簿中取得連結並且開啟新執行緒下載 使用完之後用ctrl+c或是關閉主控台來結束這個程式的執行 自訂過濾器 可以在#add your filter in here底下增加自己的過濾器，預設是圖片寬高要大於1080x1920才會下載，如果妳是要下載圖片當成桌布的話，可以考慮把過濾器設定成自己螢幕的看起來能接受的解析度。&#xA;如果只是純下載的話可以把過濾器關掉。&#xA;阿所以這程式到底在幹嘛 就是當初從1280x720螢幕換到2K螢幕之後，原本用的桌布畫質直接在妳留言區感人，所以去pixiv找新的桌布，但下載和過濾大小手工的話太花時間，所以就寫了這程式來輔助下載，如果要找更完整的存取pixiv的程式網路上也很多，這程式只是自用所以功能很雞肋，所以就自己選擇吧。&#xA;尊重畫家喔 下載圖片的同時也要注意作者有沒有同意妳使用那張作品喔。</description>
+    </item>
+    <item>
+      <title>とある線上の画像生成—とある線上製作工具</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/toaru-generator-online/</link>
+      <pubDate>Mon, 11 Jan 2021 22:58:24 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/toaru-generator-online/</guid>
+      <description>可以線上產生類似上面的圖&#xA;工具網址： https://tools.incognitas.net/toaru/ 特色 自訂所有文字 自訂漸層顏色 自訂輸出的png大小 可儲存成svg 有直向/橫向兩種模板 使用方式 UI分成預覽區、屬性區、輸出區&#xA;屬性區&#xA;屬性區可以選擇圖片的方向，還有指定所有上面的文字，和漸層顏色。&#xA;漸層方向是從右上到左下，科学色和魔術色應該很好理解。&#xA;這些文字輸入區都有輔助填入，可以清空欄位來填入建議模板，或是手殘刪掉預設文字時可以快速復原。&#xA;輸出區&#xA;輸出大小是調整輸出成png的大小，將會照著直向/橫向設定鎖定寬和高的比例，如果調整太大的話會跑很久或是跳出超載例外，如果使用裝置效能不理想的話請耗子尾汁。&#xA;儲存為(save as)按鈕會將指定的格式下載至本機，但IOS好像有點問題，就看chrome什麼時候要修了。&#xA;開啟至新分頁(open in new tab)按鈕會開啟指定的格式在新分頁中。&#xA;製作想法 因為之前有需要使用とある生成器的需求，但是找過網路上其他人做的模板都太死了，主要是生成的圖片大小都是固定的，而且都很小，還有那些模板的假名不能改，我當時要用的字是「奇妙な」，但是模板的「の」就卡在那，後來我是直接F12他的原始碼來改成我要的解析度和「な」。&#xA;所以後來我就乾脆直接自己寫一個好了，讓模板能彈性一點，就參考當時被我F12的 本の虫：とあるjavascriptの画像生成 來作為文字的大小與座標的依據，因為我只有找到這家是用網頁(JS)做的，所以只能拆解這家。&#xA;為了能讓輸出的圖片是能自訂大小的，在前期生成時我用SVG來構圖，再用canvas渲染，讓使用者可以調整輸出的圖片大小，所以這個工具可以下載成png或是svg。&#xA;UI的文字輸入部分，我放了datalist來輔助填入預設值，讓一些沒裝日文輸入法又手殘把預設值刪掉的人，能不用重載就回復欄位。&#xA;填入建議選單&#xA;目前存在問題 目前Chromium系列瀏覽器突然對直排文字反應不良，不確定是bug還是正設。&#xA;其中文字座標計算變成(originx+text_width, originy+height)，理想應為(originx, originy+height)。</description>
+    </item>
+    <item>
+      <title>本網站的網頁工具區介紹</title>
+      <link>https://www.nyraa.net/posts/incognitas/online-tools/</link>
+      <pubDate>Mon, 11 Jan 2021 22:57:58 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/online-tools/</guid>
+      <description>從2021年1月起，這個網站的大多網頁工具的網址都簡化成 https://tools.incognitas.net/工具名稱 ，雖然舊的網址還是能用，但就是比較長比較麻煩。&#xA;本網站撰寫的網頁工具 隱圖(hiddenimg) 文章： 利用圖片透明度讓一張圖片在不同底色下顯現不同畫面 字幕圖片拼接器(image-text) 文章： 字幕圖片拼接器 網頁版 とある生成器(toaru) 文章： とある線上の画像生成—とある線上製作工具 QRCode掃描網頁工具 </description>
+    </item>
+    <item>
+      <title>自製沒什麼用的字幕圖片拼接器 網頁版</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/image-text-2/</link>
+      <pubDate>Sun, 11 Oct 2020 18:57:53 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/image-text-2/</guid>
+      <description>image-text 上一篇： /posts/incognitas/works/image-text/ 這工具是上次說要做的，其實兩個月前就做好了，但ㄧ直懶得發。&#xA;建議看完上一篇再繼續看下去。&#xA;工具連結：待遷移&#xA;功能 其實跟上一篇差不多，但就是改用網頁做了。&#xA;使用方式 選擇檔案 調整邊界：&#xA;文字上下邊界是指文字區塊的內墊(padding)(文字以外額外裁切的複製圖片大小)&#xA;多行文字間距是指多行文字之間的外距(margin)(沒有背景，會被間距填滿顏色填滿) 調整文字樣式(相容CSS字串) 調整文字填滿顏色 調整間距(margin)填滿顏色 輸入字幕(或是追加範本) 產生(或動態預覽，比較吃效能) 按儲存或對圖片右鍵另存 圖例 設定參數範例</description>
+    </item>
+    <item>
+      <title>用Python製作模仿字幕拼接圖片製作程式</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/image-text/</link>
+      <pubDate>Mon, 27 Jul 2020 20:50:40 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/image-text/</guid>
+      <description>image-text 用Python製作的模仿字幕拼接圖片製作程式&#xA;Github： https://github.com/HSSLC/image-text 2020/10/11更新:線上網頁版&#xA;工具連結：待遷移&#xA;文章： /posts/incognitas/works/image-text-2/ 使用方式 需以命令列執行主程式，參數如下：&#xA;image-text.py 圖片路徑 字幕路徑 [輸出檔名] 例如：&#xA;image-text.py source.jpg 人民的法槌.txt output.jpg&#xA;字幕檔案要用\n做換行&#xA;附贈檔案 人民的法槌.txt&#xA;讓你快速的玩出第一張圖&#xA;範例 人民的法槌 心得 我真的很閒&#xA;另外：因為原本不知道為什麼腦殘用python做，做完之後才想到應該要用網頁做，這樣才能在線上運作啊！&#xA;所以：近期再做一個線上版的吧～&#xA;2020/10/11更新:網頁版已出爐，頁首有資訊。</description>
+    </item>
+    <item>
+      <title>無聊做的java小遊戲：碼畜</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/java-game-a02/</link>
+      <pubDate>Mon, 29 Jun 2020 22:13:26 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/java-game-a02/</guid>
+      <description>a02 某java開發的小遊戲：碼畜&#xA;Github： https://github.com/HSSLC/a02 截圖 這是我近期的記錄，歡迎來打破&#xA;如果要跟我分享成績歡迎到我的部落格或FB粉專留言&#xA;來源 這個程式的想法與名稱不是我原創的，在這裡先說明。&#xA;想法與名稱來自Thankcreate&#xA;使用方式 如果要直接下載遊玩的話請去 Release 下載最新版本&#xA;遊玩方式 畫面上看到1就按方向鍵右，看到0就按方向鍵下，最後會統計出時間與各項數據在右下角&#xA;第一行是目前進度&#xA;第二行是完成花費的毫秒數&#xA;第三行是平均每秒能打幾位數&#xA;第四行是平均每位數要花幾毫秒&#xA;基本上要跟別人比較的話會用第三行的數據，越高越厲害&#xA;操作方式 方向鍵下:0&#xA;方向鍵右:1&#xA;F2:截圖至./SS/*.png&#xA;Esc:設定長度&#xA;R:重設 H:顯示/隱藏幫助畫面&#xA;還有其他彩蛋自己找囉&#xA;感想 真的是打發時間用的程式欸&#xA;然後那個檔名a02是因為當時想不到要怎麼命名就亂取了</description>
+    </item>
+    <item>
+      <title>自製simple java file server，java製作的簡易http檔案伺服器</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/simple-java-file-server/</link>
+      <pubDate>Sat, 13 Jun 2020 12:21:00 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/simple-java-file-server/</guid>
+      <description>simple-java-file-server 用java製作的簡易http檔案伺服器&#xA;Github： https://github.com/HSSLC/simple-java-file-server 心得位於 文尾 用途 啟動後可以用瀏覽器之類的程式連上去，下載/瀏覽檔案等等&#xA;使用方法 因為這個程式沒有GUI，所以建議使用命令列執行，否則關閉很麻煩&#xA;參數部分可以指定port，預設是80&#xA;檔案系統根目錄是./files/，後方位址會與網址後路徑相同&#xA;應用 遠端更新 ganker 時可以使用&#xA;製作心得 在java套件已經做好的情況下，做這程式其實超級簡單，總之這次心得不長&#xA;這程式是為了ganker遠端更新而寫的，如果要做到簡易檔案伺服器的話其實有很多種方法，包括python也有套件能快速做到，所以要這種功能的程式話就看自己哪種用的順手囉～&#xA;（OS：這些小程式又沒有GUI，文章縮圖是要放啥好啊）</description>
+    </item>
+    <item>
+      <title>ganker，一個能煩死別人的小程式</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/ganker-1/</link>
+      <pubDate>Sun, 31 May 2020 11:26:55 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/ganker-1/</guid>
+      <description>ganker 一個能煩死別人的小程式&#xA;能從遠端朝惡作劇目標電腦定時放音樂，或執行cmd指令&#xA;Github： https://github.com/HSSLC/ganker 心得位於 文尾 各檔用途 ganker.java&#xA;一個沒有gui的java程式，監聽預設port8787來執行命令，port可由執行參數中修改&#xA;執行時需於jar檔案路徑/music/內放入名為music的wav格式聲音檔，作為gank時播放使用 gankerController.java&#xA;控制ganker用的程式，可以下達ganker命令，將於後方說明&#xA;啟動時預設連線localhost:8787，可於執行參數中修改 gankerControllerController.java&#xA;控制gankerController用的程式，可掃描目前同區域網路下的ganker，並開啟對應的gankerController&#xA;啟動時預設掃描port8787，可於執行參數中修改&#xA;此檔案編譯時需要用classpath連結gankerController.java ganker命令 整數&#xA;將於整數毫秒後開始播放音樂 cmd:指令&#xA;將執行指令內容，如果在windows下將於cmd內執行&#xA;注意：有些命令不被支援，可以嘗試呼叫新的cmd後再執行不支援的命令 stop&#xA;停止播放音樂 exit&#xA;結束ganker程式 使用方法 在要惡作劇的目標電腦上執行ganker.jar，或是更派一點，把ganker.jar放到開機自動啟動資料夾&#xA;再在同區域網路內其他台電腦（或是惡作劇目標本身也行）上執行gankerController.jar，如果不在惡作劇目標電腦上執行，記得在執行時給予gankerControllerIP參數，指向惡作劇目標，如果ganker的port設定不是預設的8787，記得也要改gankerController的第二個參數&#xA;然後就可以輸入ganker命令了&#xA;如果不知道惡作劇目標在區域網路的哪個IP，可以使用gankerControllerController來尋找&#xA;詳細使用方式 ganker.jar 命令列：java -jar ganker.jar [port]&#xA;port預設為8787&#xA;如果指定port已被佔用的話，ganker會嘗試以關閉ganker的方式關閉他，意思就是啟動第二個ganker時第一個就會關閉，也可以用這方法來重啟ganker（更新時會用到）&#xA;gankerController.jar 命令列：java -jar gankerController.jar [ip] [port]&#xA;ip預設為localhost&#xA;port預設為8787&#xA;GUI操作：&#xA;左上文字框：指令輸入&#xA;可用enter送出，上下鍵從歷史紀錄選擇上/下一條指令 右上文字框：當左邊輸入數字時，將會乘以右邊的倍率送出（預設倍率為毫秒-&amp;gt;分鐘） send按鈕：送出命令 stop按鈕：快速鍵，送出停止播放命令 check按鈕：檢查目標ganker是否還活著 exit按鈕：快速鍵，送出關閉ganker命令 gankerControllerController.jar 命令列：java -jar gankerControllerController.jar [port]&#xA;port預設為8787&#xA;GUI操作：&#xA;選項reload&#xA;重新掃描區域網路下的ganker 選項ip:port&#xA;開啟相對的gankerController 應用方式 基本用法：可以把惡作劇目標電腦開滿計算機，或是在使用到一半開始抬棺等等</description>
+    </item>
+    <item>
+      <title>改造出一個別人無法看到內容的顯示器</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/special-montior-1/</link>
+      <pubDate>Sat, 23 May 2020 21:37:42 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/special-montior-1/</guid>
+      <description>一個看起來完全白畫面的螢幕，但戴上有偏光效果的眼鏡時，就能正常看到顯示內容。&#xA;這個想法是從國外有人實驗來的，我看了感覺有趣就試做了一下。&#xA;原理 液晶螢幕是透過偏振光的方向與偏光片來實現的，偏光片可以只留下一個偏振方向的光，其他過濾掉；而液晶在通電的時候可以將光線偏振方向旋轉90度。&#xA;液晶螢幕的結構為（背光模組）-&amp;gt;（後偏光膜）-&amp;gt;（液晶模組）-&amp;gt;（濾色片）-&amp;gt;（前偏光膜）&#xA;後偏光膜與前偏光膜的方向差為90度，因此只有被液晶模組旋轉過的光可以穿出前偏光膜，但如果將前偏光膜拆掉的話，原本該被擋住的光會全部散出來，讓畫面是全白的狀態，而其中只有一個方向、被液晶旋轉過方向的光線有意義，因此用偏光眼鏡取代掉前偏光膜的位置時，就可以在偏光眼鏡後面看到正確的影像。&#xA;實作 我家剛好有一個偏光膜老化（壞掉）的螢幕，我打算把他拆了，把偏光膜撕掉，做一個超炫泡的螢幕，於是我就開始動工了。&#xA;這是這個螢幕的完整照片，但我忘記在拆之前拍，所以這是完成品&#xA;以下拆的過程快轉跳過&#xA;拆開第一層殼後&#xA;把電路板拆下來&#xA;背光模組&#xA;面板（+剝落的偏光膜）&#xA;然後拆到剩下液晶部分時，就開始用刀從邊邊把偏光膜和液晶分開，然後撕掉，過程非常非常非常非常的臭，那個偏光膜不知道用什麼超級臭的膠黏的，搞的全屋子都是臭味。&#xA;用刀把偏光膜挑起來&#xA;開始撕偏光膜&#xA;撕下來了&#xA;發臭的來源（偏光膜）&#xA;空氣清淨機在尖叫&#xA;撕完後後用酒精把殘膠軟化後摳掉&#xA;滿滿的殘膠&#xA;倒酒精上去&#xA;擦（摳）掉殘膠&#xA;清完了 超舒服的&#xA;然後把螢幕整個裝回去&#xA;裝回去&#xA;結果裝好後一整個杯具，在深處的排線忘記插，所以我又把螢幕拆開，把線接好後再裝起來。&#xA;忘記接回去的排線&#xA;然後我在測試時是用太陽眼鏡來做偏光材質的，因為那副太陽眼鏡也有偏光效果，而且剛好跟螢幕表面的偏光膜方向相同。&#xA;太陽眼鏡下的螢幕（實拍，非P圖）&#xA;遠一點拍，證明這是螢幕&#xA;近一點拍，增加中二氣氛&#xA;結論 這個螢幕超級潮的。&#xA;但我做的有一個缺點，就是我用的螢幕偏光膜壞掉的不只外膜，連內膜都有老化現象，所以戴上眼鏡看到的東西還是有點花，但整體來說的清晰度比改裝前好，因為壞掉的外膜已經用好的太陽眼鏡取代。&#xA;對這個相關技術要更了解的話可以去網路上搜尋。&#xA;注意 拆解顯示器有一定的風險，雖然這螢幕改裝起來看起來很猛，但製作過程中有一定的難度，可能會讓你的顯示器報銷，如果要拆解自己的顯示器前請三思。</description>
+    </item>
+    <item>
+      <title>自製多執行緒批次下載動漫狂（cartoonmad）漫畫的工具</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/downloader-2/</link>
+      <pubDate>Mon, 18 May 2020 21:09:23 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/downloader-2/</guid>
+      <description>用途 此程式可以用多執行緒批量下載動漫狂的漫畫，可完全掛機運作&#xA;Github： https://github.com/HSSLC/cartoonmad-dlr 僅作為個人學術研究使用，勿作為其他用途，本人不付任何衍生問題責任&#xA;執行環境 此程式由Python製作，執行需要Python環境。&#xA;必要模組 requests BeautifulSoup4 使用方法 執行main.py 輸入動漫狂中作品的目錄頁面網址，例如https://www.cartoonmad.com/comic/xxxx.html 程式會提示編號與章節對應表，照表輸入要下載的章節，範例： 編號 對應名稱 0 第 001 話 1 第 002 話 2 第 003 話 3 第 004 話 4 第 005 話 5 第 006 話 6 第 007 話 7 第 008 話 8 第 009 話 9 第 010 話 10 第 011 話 11 第 012 話 如果輸入1-2 5-8 10就會下載第 002 話、第 003 話、第 006 話、第 007 話、第 008 話、第 009 話、第 011 話</description>
+    </item>
+    <item>
+      <title>自製從大量圖片自動生成Kindle Mobi檔工具（kc-generator）</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/kc-generator-1/</link>
+      <pubDate>Mon, 18 May 2020 20:56:43 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/kc-generator-1/</guid>
+      <description>功能 全名為Kindle Comic Generator&#xA;適用於將特定格式目錄下的圖片，自動編成一本kindle mobi格式的漫畫，可以省力、也不怕在編排過程中被劇透。&#xA;Github： https://github.com/HSSLC/kc-generator 使用方式 執行主程式main.py後輸入 工作根目錄 路徑，程式將會根據工作根目錄指定資料夾中的圖片，生成一個mobi檔。&#xA;可以選擇自訂章節排序。&#xA;自訂章節排序方式 如果執行中選擇了自訂章節排序，請依照提示去工作目錄下的sort.txt修改排序，完成後存檔，按下enter繼續執行。&#xA;sort.txt中只能出現章節目錄，建議使用剪下貼上來調整順序，避免出現錯字導致錯誤，也請勿在sort.txt中添加文字，或是多餘的換行，避免錯誤。&#xA;工作根目錄結構要求 工作根目錄不一定要和此程式擺在一起&#xA;工作根目錄必須包含以下結構&#xA;工作根目錄 config.json 圖片根目錄 章節根目錄 圖片&amp;hellip; 章節根目錄 圖片&amp;hellip; 封面圖檔 章節根目錄名稱會影響mobi檔中的目錄(章節名稱)&#xA;config.json結構 以下皆為必要參數&#xA;title:書名 language:語言 creator:作者 direction:書寫方向(rl:點左側翻下一頁，lr:點右側翻下一頁) folder:圖片根目錄位置 width:頁面寬度 height:頁面高度 cover:封面檔案(可選擇留空，但一定要有鍵) *在 此檔案 中有預填好部分內容的JSON&#xA;注意 排序將會優先依照檔名中第一組阿拉伯數字排序，若無，將會被排在連我都不知道的順序（最前或最後？窩不知道）&#xA;更新：新增 自訂排序方式 不同章節間的內容圖片檔名可以重複 在程式執行過程中，會在 工作根目錄 下生成暫存目錄proj，會將工作根目錄的大小幾乎翻倍，執行前請先確認磁碟空間夠用 若磁碟空間吃緊，在執行完後可選擇將暫存目錄proj刪除 可以藉由修改frames\content_frame.opf來修改日後生成的書的資訊模板 工作根目錄與config.json的生成結果範例 工作根目錄範例 名稱後括號為類型方便理解，實際上不存在&#xA;C槽 測試之書(目錄) config.json(檔案) jpg(目錄) 第一章 快狐(目錄) image1.jpg(檔案) image2.jpg(檔案) image3.jpg(檔案) 第二章 越懶狗(目錄) image4.jpg(檔案) image5.jpg(檔案) cover.jpg(檔案) config.json範例 { &amp;quot;title&amp;quot;:&amp;quot;測試之書&amp;quot;, &amp;quot;language&amp;quot;:&amp;quot;zh&amp;quot;, &amp;quot;creator&amp;quot;:&amp;quot;HSSLC&amp;quot;, &amp;quot;direction&amp;quot;:&amp;quot;rl&amp;quot;, &amp;quot;folder&amp;quot;:&amp;quot;jpg&amp;quot;, &amp;quot;width&amp;quot;:&amp;quot;800&amp;quot;, &amp;quot;height&amp;quot;:&amp;quot;1280&amp;quot;, &amp;quot;cover&amp;quot;:&amp;quot;cover.</description>
+    </item>
+    <item>
+      <title>自製manhuagui-dlr（下載工具）</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/downloader-1/</link>
+      <pubDate>Sat, 09 May 2020 09:41:13 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/downloader-1/</guid>
+      <description>Github： https://github.com/HSSLC/manhuagui-dlr 僅作為個人學術研究使用，勿作為其他用途，本人不負任何衍生問題責任&#xA;功能 這是自動化批次下載manhuagui的漫畫的程式，使用python製作。&#xA;載完後可以使用自製的 kc-generator 來編成一本kindle mobi格式的漫畫。&#xA;本程式特點 自動轉檔，原始檔為webp，可以轉換為jpg 依照章節歸檔 可無須外部JS環境或前台瀏覽器 可以初始化好了之後就放置自己運作，過程不干擾電腦使用 支援proxy（代理伺服器）與proxy pool proxy設定方式 預設情況下proxy是關閉的。&#xA;proxy設定內容都在proxy.py裡面。&#xA;proxy_config變數是設定proxy模式的，能使用的值有none（關閉）、single（單一）、pool（隨機）&#xA;single 只使用單一一個proxy，設定值在下方proxy變數中，如果要調整請在http和https的值中填入自己要用的proxy位址。&#xA;pool 從proxy_pool的列表中隨機選擇一個proxy使用，如果正確設定的話可以用不同proxy分攤流量，就能調短下載的延遲時間，達到更快的下載速度。&#xA;使用方式一樣是在http和https的值填入proxy的位址，也可以新增更多的proxy進proxy_pool。&#xA;proxy憑證問題 有些proxy在https上面的憑證會有問題，此時可以將verify調整成False來跳過驗證，但是主控台會被警告洗版。&#xA;proxy注意事項 proxy位址無論是不是https，在設定中都要打成http。&#xA;如果要取得免費的proxy位址的話可以上網查free proxy list並選擇有支援https的來使用。&#xA;使用上要注意的點 manhuagui有防機器人的機制，短時間內流量過大會被ban IP好幾天，調整下載延遲參數的時候要特別注意一下，如果有使用proxy pool的話可以調短一點，但還是量力而為。&#xA;心得 機械化下載東西的第一步基本上就是要找到資源的metadata儲存方式，但manhuagui的原始碼中把metadata打碎，再用混淆過後的JS來還原回一行帶有資料的JS，然後eval該行程式，讓破解更難追蹤。&#xA;在做這個程式前有先查過了其他人有沒有做過相似的東西，結果看到很多很傻眼的操作，例如：&#xA;把整段混淆的JS複製走，用python呼叫外部JS環境執行該段JS，再把結果傳回python（Cytus管理局：拆下整個遠古科技殘骸作為系統核心，技術是什麼我們不知道） 直接開前台瀏覽器，用python控制網頁GUI，然後截圖，對妳沒看錯，就是截圖，看到直接中風。 那些呼叫外部JS環境執行專案，可能連那段程式做了什麼他們都不知道，只知道這樣的字串丟進去就能拿到那樣的結果。&#xA;我個人的做法是花了平時一周的空閒時間把該段混淆完的js分析完，再用python重現該種轉換，所以不需要用到外部JS環境，當然也不會有瀏覽器在前台動來動去。&#xA;未來走向 近期在把整個下載器重新整理成另一個專案，希望可以更好改動需要變更的參數，也可以用更模組化的方式呼叫。&#xA;註明 因為解析反反編譯的程式花了我很多時間，其實製作程式也是很耗費功夫的，程式隨便拿沒關係，但不要把他當成自己原創的，引用要附來源，謝謝。</description>
+    </item>
+    <item>
+      <title>純紀錄：近代風格UI(紙UI)</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/paper-ui-1/</link>
+      <pubDate>Sun, 12 Jan 2020 17:40:24 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/paper-ui-1/</guid>
+      <description>簡介 這篇文章是純紀錄。&#xA;這是大約兩年前做的東西，因為那時候Google剛開始做平面風格，我就參考了他的數字和外觀做了一系列的UI。&#xA;這裡只是個人練習紀錄，如果要使用的話請去用Google官方釋出的 Material Design 。&#xA;因為Google把那種標籤取了一個前綴叫「paper」，所以我也叫他紙UI。&#xA;如果效果不如預期就請換或更新瀏覽器吧，在最新版的Chrome上是沒問題的。&#xA;註記 從舊時代遷移過來之後 Live Demo 還沒做好，以下示範都是空的是正常現象，待日後解決。&#xA;紙按鈕(paper-button) 在CSS和JS掛上來後使用以上程式就可以在頁面載入時做成紙按鈕。&#xA;變種紙按鈕(paper-ripple-button) 在CSS和JS掛上來後使用以上程式就可以在頁面載入時做成變種紙按鈕。&#xA;紙輸入(paper-input) 在CSS掛上來後以上結構就會變成紙輸入。&#xA;紙進度(paper-progress) 示範：&#xA;進度65%時：&#xA;在CSS掛上來後以上結構就會變成紙進度(初始化中狀態)。&#xA;在CSS掛上來後以上結構就會變成紙進度(65%的實際進度，80%的預載進度)。&#xA;不知道叫什麼的選單(md-select-wrapper) 示範：&#xA;在CSS掛上來後以上結構就會變成md-select-wrapper。&#xA;但顯示中文好像高度會有點問題？&#xA;以上是所有平面UI的記錄。&#xA;在寫完之後才發現各個js和css的內容命名狂衝到啊，不寫這文章還沒發現。</description>
+    </item>
+    <item>
+      <title>利用圖片透明度讓一張圖片在不同底色下顯現不同畫面</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/hide-img-using-alpha-1/</link>
+      <pubDate>Sat, 14 Dec 2019 14:02:34 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/hide-img-using-alpha-1/</guid>
+      <description>說明 我有一次看到一張圖片發現他在黑底與白底中顯現出來的畫面會不同，我就開始自己研究做法，我是在做完之後才發現之前有人也有做過類似線上工具的。&#xA;示範圖片（P-&amp;gt;89453018）&#xA;使用黑色背景&#xA;你們可以嘗試把這張圖下載下來，並且在不同底色的地方查看，最方便的應該就是Messenger的白色模式了，在點開圖片後會變成黑底的，就可以查看兩種底色下的圖片表現。&#xA;線上工具 建議使用Chrome或Firefox(行動裝置或電腦都行)&#xA;https://tools.incognitas.net/hiddenimg 2020/1/2更新：&#xA;在我做好工具一陣子後，我終於找到另一個比我早做這技術的線上工具的人了： 深海異音(hbl917070) ，&#xA;這是他的文章： https://forum.gamer.com.tw/C.php?bsn=60076&amp;snA=4936349 但他的工具有缺點，在 下面 會指出。&#xA;使用說明 先選擇白底時和黑底時要顯現出來的圖片。 增加邊框以符合原圖比例：能選擇輸出圖片大小哪張圖，並且在兩圖的大小差距間用底色填滿邊框。 跟隨白底圖：輸出的圖片大小跟隨白底圖。 跟隨黑底圖：輸出的圖片大小跟隨黑底圖。 自動**(建議選項)**：輸出的圖片長、寬各別會跟隨來源較大的長、寬(也有可能長跟寬跟隨不同張圖)。 沒有勾選「增加邊框以符合原圖比例」(不建議)：輸出圖片大小會跟隨白底圖，且黑底圖會被壓縮/拉長到大小符合白底圖(比例會失真)。 色彩深度(2020/1/4更新) 固定色彩深度**(預設)**：黑底圖和白底圖都固定是7bit(128色) 自訂色彩深度(安全模式)：滑桿能調整黑底圖和白底圖分配總共8bit(256色)的比例，滑桿右方會寫出目前黑底圖和白底圖分配到的色彩深度(單位：種顏色)，在此模式下不會出現殘影。 個別調整兩圖色彩深度：滑桿能個別調整兩圖的色彩深度，但注意如果調整結果不符合下述特殊的條件有可能會出現殘像。 點選「開始」並等待。 工具我是用網頁HTML和Javascript做工具的，因為這樣在瀏覽器上就能運作~~(但外觀懶得管，很簡陋)~~。&#xA;2020/3/1更新：UI更新了，看起來好看多了。&#xA;圖片特性 這種圖片的特性是在白色背景和黑色背景顯現出來的畫面會不同，但畫面只能是單色色階的，而且在正常均分色彩深度的情況下白色背景下最黑只能到128，黑色背景下最白也只能到127，就是一個色彩深度只有7bit(128色)的意思，如果黑白底圖色彩深度兩者加起來超過256色就會影響另一底色圖的呈現(出現殘像之類的)，但有某些特殊的條件，例如該像素的白底圖沒有比該像素的黑底圖更黑(意思就是C⁰+C¹-127 &amp;lt; 255)，在這情況下能將圖片的色彩深度在特殊的條件範圍內增加，能讓圖片更鮮豔，並且不會出現殘像。&#xA;2020/1/2更新：&#xA;在深海異音的工具中，他的黑底圖的色彩深度是一律使用8bit(256色)的，雖然比較鮮豔，但會導致他的工具產生的圖片在黑底情況下，且原圖不符合上述特殊條件時，會有白底圖的殘像。&#xA;關於技術名稱的部分，因為我不知道這技術要叫什麼名字，所以我就先叫他「隱圖」或「數位雙變圖」。(深海異音稱它為「偽裝圖片」)&#xA;原理 png格式的圖片除了RGB以外還有一個參數：透明度&#xA;這種圖使用的是透明度，讓半透明的像素與背景顏色混合就能產生新的顏色，我在計算的時候是使用二元一次聯立方程式。&#xA;變數說明:&#xA;為了方便說明，以下數字都是用0~1表示，但實際上計算時除了α以外都是0~255。&#xA;B:背景顏色(0~1)(在這裡只有黑(0)或白(1))&#xA;X:白色背景時圖片該像素預期的顏色(0~1)(灰階，所以RGB都是X)&#xA;Y:黑色背景時圖片該像素預期的顏色(0~1)(灰階，所以RGB都是Y)&#xA;C:輸出的顏色(0~1)(灰階，所以RGB都是C)&#xA;α:輸出的不透明度(0~1)&#xA;這是一個顏色和背景混合的公式:&#xA;最終顯示在螢幕上的顏色=B(1-α)+Cα&#xA;最終顯示的顏色我們預期他是X(白背景時)或Y(黑背景時)&#xA;所以我們就能列出聯立方程式:&#xA;X=1(1-α)+Cα&#xA;Y=0(1-α)+Cα&#xA;移項後:&#xA;X=1-α+Cα&#xA;Y=Cα&#xA;我們就能求出C和α&#xA;α=Y+1-X&#xA;C=Y/α=Y/(Y+1-X)&#xA;先定義像素點參數為：&#xA;C - 顏色，0是黑，1是白&#xA;α - 不透明度，0是完全透明，1是完全不透明&#xA;當像素(C,α)和背景色B混合時，顯示的顏色是(1-α)B+αC&#xA;也就是說，最終顯示在螢幕上的顏色=(1-α)B+αC&#xA;若像素(C,α)需要在全黑背景時顯示為C⁰，全白背景時顯示為C¹，可以列出兩組等式：</description>
+    </item>
+    <item>
+      <title>[實作]自製電二胡#1 本體製作</title>
+      <link>https://www.nyraa.net/posts/incognitas/works/electric-erhu-1/</link>
+      <pubDate>Sat, 23 Nov 2019 20:14:45 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/incognitas/works/electric-erhu-1/</guid>
+      <description>關於為何會做電二胡 我到現在已經學二胡五年左右了~~，然而實力還是很差~~。&#xA;有一次跟別人聊天，聊到電子樂器經常都只有一個骨架，他們就說正常二胡看起來也超電的一樣，然後聊著聊著就被他們推去做電二胡，我就想說反正我二胡有兩把，就拿便宜那把來改裝成電二胡好了。&#xA;於是就挖了這坑來跳&#xA;目標 我的目標是要把這把二胡改裝成電二胡，並且把原本的聲音去掉，再把輸出訊號接到效果器做出像電吉他那種聲音。&#xA;正文 我一開始是先查了一下電吉他拾音器的結構，然後發現他的結構不太適合放在二胡上，於是我就找了以前的老師和他討論。&#xA;後來決定使用類似喇叭的結構(我不考慮麥克風，很容易收到環境雜音)，把磁鐵黏在蛇皮上，再用繞了線圈的螺絲靠近磁鐵，弦震動時蛇皮也會帶動磁鐵震動，線圈就會感應到電流。&#xA;拾音裝置&#xA;線圈的部分是使用0.23mm的銅線繞在螺絲上，拿電表量阻值大約8Ω。&#xA;在這部分我有先用示波器量過，輸出訊號在20mv到100mv間，但在量的時候發現一個蠻重大的缺點，在拉內弦時因為頻率較低，D左右的音還跟蛇皮加磁鐵的共振特大，導致內弦聲音較(爆)大，但這影響不會到音效全毀的等級。&#xA;用電磁拾音器收音。&#xA;先前也有試過蜂鳴片，但示波器一量整個怕.jpg，那個電磁拾音器輸出大約最大100mv，蜂鳴片隨便一摸就個位數伏特起跳，所以最後是沒採用蜂鳴片。&#xA;用蜂鳴片收音內弦(D)。&#xA;用蜂鳴片收音外弦(A)，推和拉弓收到的波方向會不同。&#xA;拾音裝概念置示意圖&#xA;磁鐵黏在蛇皮上(琴馬左邊的那顆)&#xA;拾音裝置(和靈敏度調整的部分)&#xA;關於調整靈敏度的部分我用的是先把螺帽固定在木板上，螺絲旋轉就可以調整螺絲與螺帽的相對位置。&#xA;然後再把木板黏死在音箱內，這樣就可以轉動螺絲來調整螺絲與磁鐵的距離。&#xA;拍攝音箱內部(那些飛來飛去的線都是同一條)&#xA;現在基本上這電二胡已經能運作了，但是還有一點重要的沒做，那就是把原本二胡的聲音去掉，在這部分我用的是棉花，把音箱填滿來吸收部分的聲音。&#xA;但在研究後發現，要在琴馬和蛇皮中間夾東西才能達成效果。&#xA;用棉花吸收二胡原本的聲音用有機棉的話就是有機電二胡了&#xA;成果 因為我效果器還沒買，所以先用一般的喇叭來測試。&#xA;先用廉價喇叭測試，燒壞不會虧那麼多。&#xA;等效果器買了應該會再發一篇文。&#xA;使用電腦錄製，直接將輸出接至音源輸入孔的結果(已放大)&#xA;使用電腦錄製，直接將輸出接至音源輸入孔，再以電腦模擬破音的結果(已放大)&#xA;成果怎麼看都是普通二胡啊&#xA;總結 因為這是電二胡本體做好一個月左右才寫的文章，所以會用介紹成品的角度來說明，以後的作品如果是每個進度發文的話，應該就會用偏紀錄的方式寫文章。(意思就是沒做完以前不會有總結)</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>文章 on </title>
+    <link>https://www.nyraa.net/posts/</link>
+    <description>Recent content in 文章 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Thu, 06 Nov 2025 19:56:54 +0000</lastBuildDate>
+    <atom:link href="https://www.nyraa.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 Freshtomato 和 OpenWRT 上使用 Tinc VPN</title>
+      <link>https://www.nyraa.net/posts/freshtomato-tinc/</link>
+      <pubDate>Thu, 06 Nov 2025 19:56:54 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/freshtomato-tinc/</guid>
+      <description>VPN 的選擇 我平常使用的路由器是 arm 架構的，上面裝 Freshtomato 韌體，連到我的伺服器之間是用 WireGuard，但是手邊另一台路由器架構是 mips，對應的 Freshtomato 原始碼不包含 WireGuard，至於為什麼不包含我還沒仔細研究是哪部分使得這個架構沒有包含 WireGuard，但是有 Tinc 我就先用了 Tinc。&#xA;各節點參數 這邊的拓樸是讓 OpenWRT 有公開的 IP 位址作為大家的入口。&#xA;OpenWRT 設定 內容 介面名稱 tinc_vpn1 節點名稱 openwrt LAN IP 192.168.140.1/24 WAN IP 111.111.111.111 Freshtomato 設定 內容 介面名稱 tinc（固定） 節點名稱 freshtomato LAN IP 192.168.150.1/24 OpenWRT 端設定 參考 官方文件 設定&#xA;安裝套件 opkg update opkg install tinc 建立資料夾 mkdir -p /etc/tinc/tinc_vpn1 產生金鑰 tinc -n tinc_vpn1 generate-ed25519-keys &amp;lt; /dev/null 如果不跟舊版節點連線的話就不用生 RSA 金鑰。</description>
+    </item>
+    <item>
+      <title>編譯 Freshtomato 並自訂包含的功能</title>
+      <link>https://www.nyraa.net/posts/compile-freshtomato/</link>
+      <pubDate>Thu, 06 Nov 2025 18:58:50 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/compile-freshtomato/</guid>
+      <description>前言 Freshtomato 是一個開放原始碼的路由器韌體，可以讓一些原廠韌體已經停止更新的老路由器續命，更多種種好處在網路上也可以看到大家敘述。&#xA;我自己主要會用的原因是因為我手上的路由器都是 ASUS 的，官方韌體版本都老到不支援我需要用到的 VPN，例如一台 RT-AC66U-B1 官方韌體最新版本是 3.0.0.4.386_52062，但是我想用的 WireGuard VPN 需要 3.0.0.4.388.23000 版本以上才能支援（我一直以為這台已經老到被放棄了，結果剛為了查韌體最新版才發現兩周前官方才剛發了一個韌體更新，但仍然只有修補功能，沒有新增功能），以及另一台更老的 RT-N15U，上面甚至只有 PPTP 伺服器，沒有任何 VPN 客戶端可用，沒辦法拿來作為我網路拓樸裡面的存取點。&#xA;正好這兩台路由器都在 Freshtomato 的支援清單中，RT-AC66U-B1 這台的 Flash Memory 比較大，可以無腦選 AIO 版本，而且支援的 Kernel 版本也比較新，支援 WireGuard，這台直接刷官方的 pre-build binary 韌體就可以了。&#xA;但是為何需要自己編譯 Freshtomato 韌體呢？主要是因為 RT-N15U 這台 Flash Memory 只有 8MB，根據官方 Feature matrix 來看，8MB 的 pre-build 版本中至多只有 OpenVPN、PPTP 這兩種 VPN，但是我比較偏好 8MB 以上才包含的 Tinc 這個原生支援 Mesh 的 VPN，所以需要自己挑用不到的功能去掉，然後在省下來的空間加上 Tinc 來編譯。&#xA;編譯步驟 環境 OS: Ubuntu 24.04.3 Kernel: 6.14.0-33-generic Docker: 28.</description>
+    </item>
+    <item>
+      <title>我的日常各式工作用工具</title>
+      <link>https://www.nyraa.net/posts/daily-work-tools/</link>
+      <pubDate>Sat, 06 Sep 2025 16:32:27 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/daily-work-tools/</guid>
+      <description>紀錄我平常在每種任務上都用什麼工具來完成。&#xA;影音 轉檔 - ffmpeg 連結： https://ffmpeg.org/ 簡單好用，收錄的編碼多，開放原始碼且乾淨，沒理由不用。&#xA;主要用途為：&#xA;轉換格式 壓縮影音 合併分離影音軌道 裁切影音 下載合併 m3u 播放清單 下載 YouTube - yt-dlp 連結： https://github.com/yt-dlp/yt-dlp 與其用網路上那些來路不明的網站跟程式，要承擔廣告/格式不全/重新編碼之類的問題，還是 yt-dlp 乾淨好用。&#xA;音訊編輯 - Audacity 連結： https://github.com/audacity/audacity 撇除掉某版開始有收集過多資訊這點以外，整體算是乾淨好用。&#xA;主要用途：&#xA;精準地剪接聲音 去除噪音 混合音軌 影片編輯 - 還沒找到順手的 以前會用 AviUtl，但那個毛病偏多，專案規模大起來容易崩，簡單用起來體驗還算可以，但是沒有到非常完美。&#xA;反編譯 C# DnSpy il2cppdumper Unity 專案用 il2cpp 編譯成 native 之後要用的。&#xA;Java JADX 用 apktool 拆包修 smali 或是寫 ReVanced 補釘的時候都是用 JADX 來瀏覽相較能讀的 Code，然後再找到對應的 smali 的位置然後修改。&#xA;這工具的 Reference 做得還不錯，可以容易追到每個物件/變數用到哪裡去。&#xA;其他 Ghidra 還不是很會用，只能追簡單的流程。</description>
+    </item>
+    <item>
+      <title>WSA 用 fiddler 攔截封包</title>
+      <link>https://www.nyraa.net/posts/wsa-fiddler/</link>
+      <pubDate>Tue, 19 Nov 2024 08:54:14 +0000</pubDate>
+      <guid>https://www.nyraa.net/posts/wsa-fiddler/</guid>
+      <description>環境 這邊假設是用原生的 WSA，沒有裝過 Magisk 或是替換成有 superuser 的 kernel。&#xA;安裝憑證 先用 wsl 掛載 system.vhdx，假設路徑在 /mnt/c/WSA/system.vhdx&#xA;假設憑證已經做成兩個 .0 檔案&#xA;resize_img() { sudo e2fsck -pf &amp;#34;$1&amp;#34; || return 1 if [ &amp;#34;$2&amp;#34; ]; then sudo resize2fs &amp;#34;$1&amp;#34; &amp;#34;$2&amp;#34; || return 1 else sudo resize2fs -M &amp;#34;$1&amp;#34; || return 1 fi return 0 } # convert vhdx qemu-img convert -q -f vhdx -O raw /mnt/c/WSA/system.vhdx /tmp/system.img # ro ext4 img to rw resize_img /tmp/system.img &amp;#34;$(($(du --apparent-size -sB512 /tmp/system.</description>
+    </item>
+  </channel>
+</rss>
